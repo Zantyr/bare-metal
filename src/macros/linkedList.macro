@@ -1,0 +1,47 @@
+#MACRO:
+defineList(Type)
+typedef struct <Type>List__ {
+	<Type> value;
+	struct <Type>List__ *next;
+} <Type>List__ ;
+
+static <Type> get_<Type>(<Type>List__ *list, unsigned int index){
+	for(;index>0;index--) list = list->next;
+	return list->value;
+}
+
+static void push_<Type>(<Type>List__ *list, <Type> value) {
+	while(list->next) list = list->next;
+	list->next = malloc(sizeof(<Type>List__));
+	list->next->value = value;
+}
+static <Type>List__ * remove_<Type>(<Type>List__ *list, <Type> value) {
+	if(list->value == value){
+		<Type>List__ * toret =  list->next;
+		free(list);
+		return toret;
+	}
+	<Type>List__ * toret = list;
+	while(list->next){
+		if(list->next->value == value){
+			<Type>List__ * toappend = list->next->next;
+			free(list->next);
+			list->next = toappend;
+			return toret;
+		}
+		list = list->next;
+	}
+	return NULL;
+};
+#MACRO:
+get(type)
+get_<Type>
+#MACRO:
+append(Type)
+push_<Type>
+#MACRO:
+remove(Type)
+remove_<Type>
+#MACRO:
+List(Type)
+<Type>List__ *
