@@ -9,7 +9,7 @@ mkdir -p builds/obj
 #preprocessing macra
 mkdir -p src/built
 MACROS=`ls src/macros/*.macro`
-MACROABLE=`find src | grep \\.meta`
+MACROABLE=`{find src | grep \\.meta} || echo ""`
 for fname in $MACROABLE; do
 	python tools/preprocess.py ${fname} $MACROS
 done
