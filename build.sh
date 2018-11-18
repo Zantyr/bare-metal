@@ -8,7 +8,7 @@ mkdir -p builds/obj
 
 #preprocessing macra
 mkdir -p src/built
-MACROS=`ls src/macros/*.macro`
+MACROS=`ls src/macros/*.macro | sort`
 MACROABLE=`find src | grep \\.meta\\.c || echo ""`
 if [ ! -z "$MACROABLE" ]; then 
 for fname in $MACROABLE; do
@@ -35,7 +35,7 @@ fi
 echo Using malloc "${MALLOC^^}"
 
 #compile C
-gcc -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -D DESIREDMALLOCIS"${MALLOC^^}" -c src/kernel.c -o builds/obj/kernel.o
+gcc -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -Wno-unused-function -D DESIREDMALLOCIS"${MALLOC^^}" -c src/kernel.c -o builds/obj/kernel.o
 
 #link things
 ld -T src/linker.ld -melf_i386 -o builds/iso/boot/shitos.bin builds/obj/boot.o builds/obj/kernel.o

@@ -16,14 +16,11 @@
 #ifndef BASH
 #include "bash.c"
 #endif
-
-#include "init.c"
-
-
 #ifndef MULTIBOOT
 #include "multiboot.h"
 #endif
 
+#include "init.c"
 
 void kernel_main(multiboot_info_t* mbd){
         terminal_initialize();

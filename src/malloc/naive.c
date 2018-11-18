@@ -23,3 +23,7 @@ void log_memory(){
 void malloc_info(){
 	terminal_cat("No memory management enabled\n");
 }
+
+void free(void * ptr){
+	(void) ptr;
+}

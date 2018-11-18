@@ -2,6 +2,8 @@
 import re
 import sys
 
+DEPTH_OF_INSPECTION = 3
+
 def apply_spec(text, macro):
 	name, args = re.findall("([A-Za-z0-9_]+)\(([A-Za-z0-9_ ,]+)\)", macro)[0]
 	args = [x.strip() for x in args.split(',')]
@@ -15,10 +17,11 @@ def apply_spec(text, macro):
 with open(sys.argv[1], 'r') as f:
     contents_to_replace = f.read()
 
-for subst in sys.argv[2:]:
-    with open(subst, 'r') as f:
-    	for macro in [x for x in f.read().split("#MACRO:\n") if x]:
-	        contents_to_replace = apply_spec(contents_to_replace, macro)
+for times in range(DEPTH_OF_INSPECTION):
+    for subst in sys.argv[2:]:
+        with open(subst, 'r') as f:
+            for macro in [x for x in f.read().split("#MACRO:\n") if x]:
+                contents_to_replace = apply_spec(contents_to_replace, macro)
 
 with open(sys.argv[1].replace(".meta.c", ".c"), 'w') as f:
     f.write(contents_to_replace)

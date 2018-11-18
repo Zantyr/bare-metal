@@ -6,24 +6,32 @@
 // requires list library
 // which requires better macro capabilities
 
+#ifndef STDLIB
+#include "stdlib.c"
+#endif
+
 typedef struct File{
 	int length;
 	char * name;
 	char * contents;
-} file;
+} File;
 
-defineList(File)
+typedef File* FileRef;
 
-List(File) filesystem = NULL;
+defineList(FileRef)
 
-List(File) listdir(char * initial){
-	List(File) new_list = malloc(sizeof(List(File)));
-	if(initial){
-		for(filesystem){
-			append(File)(new_list, get(File)(new_list));					
+List(FileRef) filesystem = NULL;
+
+List(FileRef) listdir(char * initial){
+	List(FileRef) new_list = malloc(sizeof(List(FileRef)));
+	for(int index=0;index < listLen(FileRef)(filesystem);index++){
+		if(initial){
+			if(cmpStrHead(get(FileRef)(filesystem, index)->name, initial)){
+				append(FileRef)(new_list, get(FileRef)(filesystem, index));
+			}
+		} else {
+			append(FileRef)(new_list, get(FileRef)(filesystem, index));
 		}
-	} else {
-		
 	}
 	return new_list;
 }

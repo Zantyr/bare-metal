@@ -1,5 +1,6 @@
 #MACRO:
 defineList(Type)
+#ifndef LISTTYPE<Type>
 typedef struct <Type>List__ {
 	<Type> value;
 	struct <Type>List__ *next;
@@ -32,9 +33,19 @@ static <Type>List__ * remove_<Type>(<Type>List__ *list, <Type> value) {
 		list = list->next;
 	}
 	return NULL;
-};
+}
+static int listLen_<Type>(<Type>List__ *list){
+	int length = 0;
+	while(list){
+		length++;
+		list = list->next;
+	}
+	return length;
+}
+#define LISTTYPE<Type>
+#endif
 #MACRO:
-get(type)
+get(Type)
 get_<Type>
 #MACRO:
 append(Type)
@@ -42,6 +53,9 @@ push_<Type>
 #MACRO:
 remove(Type)
 remove_<Type>
+#MACRO:
+listLen(Type)
+listLen_<Type>
 #MACRO:
 List(Type)
 <Type>List__ *

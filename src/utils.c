@@ -30,10 +30,10 @@ void setStr(char *to, char *from){
     to[index] = 0;
 }
 
-int cmpStrHead(char *from, char *to) {
+int cmpStrHead(char *from, char *head) {
     short index = 0;
-    while(to[index] != 0){
-        if(from[index] != to[index])
+    while(head[index] != 0){
+        if(from[index] != head[index])
             return 0;
         index++;
     }
@@ -89,10 +89,4 @@ char * itoa(unsigned int i) {
     itoaBuffer[index] = 0;
     strRev(itoaBuffer);
     return itoaBuffer;
-}
-
-char* strCopy(char *from){
-	char* new = (char*) malloc((int) strLen(from));
-	setStr(new, from);
-	return new;
 }
