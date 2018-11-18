@@ -20,6 +20,7 @@ void halt(){
     while(1);
 }
 
+//unsafe
 void setStr(char *to, char *from){
     short index = 0;
     while(from[index] != 0){
@@ -88,4 +89,10 @@ char * itoa(unsigned int i) {
     itoaBuffer[index] = 0;
     strRev(itoaBuffer);
     return itoaBuffer;
+}
+
+char* strCopy(char *from){
+	char* new = (char*) malloc((int) strLen(from));
+	setStr(new, from);
+	return new;
 }

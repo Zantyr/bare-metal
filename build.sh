@@ -9,14 +9,17 @@ mkdir -p builds/obj
 #preprocessing macra
 mkdir -p src/built
 MACROS=`ls src/macros/*.macro`
-MACROABLE=`{find src | grep \\.meta} || echo ""`
+MACROABLE=`find src | grep \\.meta\\.c || echo ""`
+if [ ! -z "$MACROABLE" ]; then 
 for fname in $MACROABLE; do
 	python tools/preprocess.py ${fname} $MACROS
 done
+fi
 
 function cleanup {
-	META=`find src | grep \\.meta.c`
-	rm $META
+	# META=`find src | grep \\.meta.c`
+	# rm $META
+	echo ""
 }
 trap cleanup EXIT
 

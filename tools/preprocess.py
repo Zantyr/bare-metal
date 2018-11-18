@@ -20,5 +20,5 @@ for subst in sys.argv[2:]:
     	for macro in [x for x in f.read().split("#MACRO:\n") if x]:
 	        contents_to_replace = apply_spec(contents_to_replace, macro)
 
-with open(sys.argv[1] + ".c", 'w') as f:
+with open(sys.argv[1].replace(".meta.c", ".c"), 'w') as f:
     f.write(contents_to_replace)
