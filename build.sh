@@ -25,6 +25,7 @@ trap cleanup EXIT
 
 #assemble
 nasm src/boot.asm -o builds/obj/boot.o -f elf32
+nasm src/init_tools.asm -o builds/obj/init_tools.o -f elf32
 
 if [ ! -z "${1:-}" ]; then
 	MALLOC="$1"
@@ -38,7 +39,7 @@ echo Using malloc "${MALLOC^^}"
 gcc -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -Wno-unused-function -D DESIREDMALLOCIS"${MALLOC^^}" -c src/kernel.c -o builds/obj/kernel.o
 
 #link things
-ld -T src/linker.ld -melf_i386 -o builds/iso/boot/shitos.bin builds/obj/boot.o builds/obj/kernel.o
+ld -T src/linker.ld -melf_i386 -o builds/iso/boot/shitos.bin builds/obj/boot.o builds/obj/kernel.o builds/obj/init_tools.o
 
 # grub thingz
 if grub-file --is-x86-multiboot builds/iso/boot/shitos.bin; then

@@ -27,6 +27,7 @@ void kernel_main(multiboot_info_t* mbd){
 		// make a malloc
 		make_malloc(mbd);
 		// loaded correctly, you may proceed
+		init_filesys();
         terminal_cat("This is shitOS!\n");
         terminal_cat("Version 0.0.1\n");
         terminal_cat("Used malloc: ");terminal_cat(MALLOCNAME);terminal_cat("\n");

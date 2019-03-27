@@ -18,7 +18,7 @@ All of those binaries are not holding to any standard. No imported code except f
 
 ### To do
 
-File system for storage of byte blobs
+File system for storage of byte blobs (in progress)
 Init system that launches the development platform
 File linking at compile time
 Linking document system calls - generally, read source before compile time and read documentations of functions and add them at build time

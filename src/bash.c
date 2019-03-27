@@ -83,6 +83,8 @@ int bash_get_malloc_page(char* s){
 	return 0;
 }
 
+int bash_ls(char* s); // defined in fs.meta.c
+
 typedef struct shcom {
     char name[15];
     int (*function)(char *s);
@@ -107,6 +109,8 @@ void setupCommands(){
     COMMANDS[6].function = &bash_memmap;
     setStr(COMMANDS[7].name, "malloc_info");
     COMMANDS[7].function = &bash_get_malloc_page;
+    setStr(COMMANDS[8].name, "ls");
+    COMMANDS[8].function = &bash_ls;
 }
 
 

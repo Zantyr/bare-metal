@@ -12,19 +12,31 @@ static <Type> get_<Type>(<Type>List__ *list, unsigned int index){
 }
 
 static void push_<Type>(<Type>List__ *list, <Type> value) {
+	if(list == NULL){
+		die("Empty list! (NULL DEREFERENCE)\\n");
+	}
 	while(list->next) list = list->next;
 	list->next = malloc(sizeof(<Type>List__));
 	list->next->value = value;
 }
+
 static <Type>List__ * remove_<Type>(<Type>List__ *list, <Type> value) {
+	#ifdef equatable<Type>
+	if(eq<Type>(list->value, value)){
+	#else
 	if(list->value == value){
+	#endif
 		<Type>List__ * toret =  list->next;
 		free(list);
 		return toret;
 	}
 	<Type>List__ * toret = list;
 	while(list->next){
+		#ifdef equatable<Type>
+		if(eq<Type>(list->next->value, value)){
+		#else
 		if(list->next->value == value){
+		#endif
 			<Type>List__ * toappend = list->next->next;
 			free(list->next);
 			list->next = toappend;
@@ -34,6 +46,7 @@ static <Type>List__ * remove_<Type>(<Type>List__ *list, <Type> value) {
 	}
 	return NULL;
 }
+
 static int listLen_<Type>(<Type>List__ *list){
 	int length = 0;
 	while(list){
@@ -42,6 +55,7 @@ static int listLen_<Type>(<Type>List__ *list){
 	}
 	return length;
 }
+
 #define LISTTYPE<Type>
 #endif
 #MACRO:
@@ -59,3 +73,6 @@ listLen_<Type>
 #MACRO:
 List(Type)
 <Type>List__ *
+#MACRO:
+allocate_list(Type)
+malloc(sizeof(<Type>List__))
