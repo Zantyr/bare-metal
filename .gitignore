@@ -1,1 +1,3 @@
 builds/*
+src/fs.c
+src/init.c

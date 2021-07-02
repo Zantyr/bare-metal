@@ -40,6 +40,19 @@ int cmpStrHead(char *from, char *head) {
     return 1;
 }
 
+int strCmp(char *from, char *to) {
+    short index = 0;
+    while(to[index] != 0){
+        if(from[index] != to[index])
+            return 0;
+        index++;
+    }
+		if(from[index]){
+			return 0;
+		}
+    return 1;
+}
+
 short strLen(char *s){
     short index=0;
     while(s[index]){
@@ -84,7 +97,7 @@ char * itoa(unsigned int i) {
    	        i /= 10;
    	        itoaBuffer[index] = '0' + (char) digit;
    	        index++;
-   	    }   	    	
+   	    }
     }
     itoaBuffer[index] = 0;
     strRev(itoaBuffer);

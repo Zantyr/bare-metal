@@ -9,7 +9,7 @@
 #ifdef DESIREDMALLOCISPROTO
 #include "malloc/protomalloc.c"
 #endif
-#if DESIREDMALLOCISNAIVE
+#ifdef DESIREDMALLOCISNAIVE
 #include "malloc/naive.c"
 #endif
 #endif

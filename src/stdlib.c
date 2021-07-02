@@ -12,3 +12,9 @@ char* strCopy(char *from){
 	setStr(new, from);
 	return new;
 }
+
+void memCopy(char *from, char *to, unsigned int bytes){
+	for(unsigned int i=0; i<bytes; i++){
+		to[i] = from[i];
+	}
+}

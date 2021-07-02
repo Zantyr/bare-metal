@@ -105,7 +105,7 @@ void terminal_write_char(char c){
         	}
    	  		for(int j=0; j < VGA_WIDTH; j++){
 				terminal_write_symbol(' ', terminal_color, j, VGA_HEIGHT - 1);
-       		}        	
+       		}
         }
     } else if(c == 127) {
         if(terminal_column) terminal_column--;
@@ -115,7 +115,7 @@ void terminal_write_char(char c){
         terminal_put_char(c);
     } else {
         terminal_put_char('.');
-    } 
+    }
     unsigned short position=(terminal_row * VGA_WIDTH) + terminal_column;
     outb(0x3D4, 0x0F);
     outb(0x3D5, (unsigned char)(position&0xFF));

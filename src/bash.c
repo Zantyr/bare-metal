@@ -3,14 +3,14 @@
 #ifndef TERMINAL
 #include "terminal.c"
 #endif
-#ifndef MALLOC
-#include "malloc.c"
-#endif
 #ifndef UTILS
 #include "utils.c"
 #endif
+#ifndef HEX
+#include "hex.c"
+#endif
 
-#define NUMCMDS 10
+#define NUMCMDS 16
 
 int bash_cat(char *s){
     terminal_cat(s);
@@ -111,6 +111,10 @@ void setupCommands(){
     COMMANDS[7].function = &bash_get_malloc_page;
     setStr(COMMANDS[8].name, "ls");
     COMMANDS[8].function = &bash_ls;
+		setStr(COMMANDS[9].name, "peek ");
+    COMMANDS[9].function = &bash_peek;
+		setStr(COMMANDS[10].name, "hexed ");
+    COMMANDS[10].function = &bash_hexedit;
 }
 
 

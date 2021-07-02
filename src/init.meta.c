@@ -1,4 +1,6 @@
+#ifndef FILESYSTEM
 #include "fs.c"
+#endif
 
 #define STACKSIZE 4096
 

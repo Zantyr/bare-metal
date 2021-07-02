@@ -9,6 +9,7 @@
 #ifndef STDLIB
 #include "stdlib.c"
 #endif
+#define FILESYSTEM
 
 typedef struct File{
 	int length;
@@ -46,6 +47,18 @@ List(FileRef) listdir(char * initial){
 	return new_list;
 }
 
+FileRef getFile(char *file){
+	FileRef pointer = NULL;
+	List(FileRef) iter = filesystem;
+	while(iter){
+		if(strCmp(iter->value->name, file)){
+			return iter->value;
+		}
+		iter = iter->next;
+	}
+	return pointer;
+}
+
 int bash_ls(char *s){
 	List(FileRef) flist;
 	if(strLen(s)){
@@ -76,7 +89,7 @@ int add_txt_file(char *name, char *txt){
 				found = 1;
 				search = NULL;
 			} else {
-				search = search->next;							
+				search = search->next;
 			}
 		}
 		if(!found){
@@ -106,4 +119,47 @@ void init_filesys(){
 	filesystem->value = new_one;
 	filesystem->next = NULL;
 	{% files %}
+}
+
+typedef struct FileWriter{
+	FileRef fileRef;
+	int fileLength;
+	int filePosition;
+	char *content;
+} * FileWriter;
+
+void fileWriterClean(FileWriter writer) {
+	(void) writer;
 };
+
+void fileWriterLoad(FileWriter writer) {
+	char* newContent = (char*) malloc(writer->fileRef->length + 1);
+	if(writer->content){
+		free(writer->content);
+	}
+	writer->content = newContent;
+	memCopy(writer->fileRef->contents, newContent, writer->fileRef->length);
+	writer->fileLength = writer->fileRef->length;
+	writer->filePosition = writer->fileRef->length;
+};
+
+void fileWriterFlush(FileWriter writer){
+	writer->fileRef->contents = writer->content;
+	fileWriterClean(writer);
+};
+
+void fileWriterWrite(FileWriter writer, char *content, int bytes) {
+	while(writer->filePosition + bytes > writer->fileLength){
+		char *newOne = (char*) malloc(2 * writer->fileLength);
+		memCopy(writer->content, newOne, writer->filePosition);
+		free(writer->content);
+		writer->fileLength = 2 * writer->fileLength;
+		writer->content = newOne;
+	}
+	memCopy(content, &(writer->content[writer->filePosition]), bytes);
+	writer->filePosition += bytes;
+}
+
+void fileWriterSeek(FileWriter writer, int addr) {
+	writer->filePosition = addr;
+}
