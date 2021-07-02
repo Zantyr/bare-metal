@@ -23,6 +23,9 @@ Init system that launches the development platform
 File linking at compile time
 Linking document system calls - generally, read source before compile time and read documentations of functions and add them at build time
 
+-> verify nasm existence on build; xorriso, mformat
+-> create filessytem folder on build if not present (add to git)
+
 ### Change log
 
 2018-11-15 - variable malloc, linking at build time
