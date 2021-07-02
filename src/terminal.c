@@ -193,3 +193,16 @@ void die(char *s){
     terminal_cat(s);
     halt();
 }
+
+int bash_test_keyboard(char *s){
+	(void) s;
+	char i;
+	terminal_cat("test");
+	do {
+		i = terminal_get_scan_code();
+		unsigned int integer = (unsigned int) i;
+		terminal_cat(itoa(integer));
+		terminal_cat(" ");
+	} while(i != 0 && i != 1);
+	return 0;
+}

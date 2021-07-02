@@ -1,7 +1,13 @@
 #ifndef FILESYSTEM
 #include "fs.c"
 #endif
+#ifndef TERMINAL
+#include "terminal.c"
+#endif
+
 #define HEX
+
+#define ESC_SCAN 1
 
 char hexDigit(char decimal){
   if(decimal >= 0 && decimal < 10){
@@ -72,6 +78,14 @@ void redrawHexEditView(HexEditView view){
   // safe string
   // add a header with "/ for help" and current file and location
   (void) view;
+  for(int position_x = 0; position_x < 16; position_x ++){
+	  for(int position_y = 0; position_y < 16; position_y ++){
+	  	  int position = position_y * 16 + position_x;
+		  char drawable = view->fileHandler->content[position];
+		  terminal_write_symbol(hexDigit(drawable >> 4), 0xF, 3 * position_x, position_y);
+		  terminal_write_symbol(hexDigit(drawable & 0xF), 0xF, 3 * position_x + 1, position_y);
+      }
+  }
 };
 
 int interpretHexEditViewCmd(HexEditView view, char cmd){
@@ -87,7 +101,7 @@ int interpretHexEditViewCmd(HexEditView view, char cmd){
   // n - fill page
   // w - insert word - 4 bytes
   // s - save
-  if(cmd == '\r'){
+  if(cmd == ESC_SCAN){
     return -1;
   }
   return 0;

@@ -111,10 +111,12 @@ void setupCommands(){
     COMMANDS[7].function = &bash_get_malloc_page;
     setStr(COMMANDS[8].name, "ls");
     COMMANDS[8].function = &bash_ls;
-		setStr(COMMANDS[9].name, "peek ");
+	setStr(COMMANDS[9].name, "peek ");
     COMMANDS[9].function = &bash_peek;
-		setStr(COMMANDS[10].name, "hexed ");
+	setStr(COMMANDS[10].name, "hexed ");
     COMMANDS[10].function = &bash_hexedit;
+	setStr(COMMANDS[11].name, "testkb");
+    COMMANDS[11].function = &bash_test_keyboard;
 }
 
 
