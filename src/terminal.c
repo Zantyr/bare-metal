@@ -5,6 +5,14 @@
 #include "utils.c"
 #endif
 
+#define KEY_ESC 1
+#define KEY_CTRL 29
+#define KEY_ALT 56
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define KEY_LEFT 75
+#define KEY_RIGHT 77
+
 
 enum vga_color {
 	VGA_COLOR_BLACK = 0,
